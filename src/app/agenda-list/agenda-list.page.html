@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Minha Agenda
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-button type="buttun"  shape="round" expand="full" color="secondary" routerLink="/agenda">
+        Agendar
+      </ion-button>
+      <ion-button type="buttun" (click)="pegarData()" shape="round" expand="full" color="warning">
+        Pesquisar
+      </ion-button>
+    </ion-card-header>
+    <ion-title style="margin-bottom: 10px;">
+      Meus compromissos
+    </ion-title>
+      <ion-list *ngFor="let agenda of agendas">
+        <ion-item-sliding >
+          <ion-item-options side="start">
+            <ion-item-option expandable (click)="onEdit(agenda.id)">Editar</ion-item-option>
+          </ion-item-options>
+          <ion-item>
+            <div style="margin-left: 10px; width: 80px;">{{agenda.data | date:"dd/MM/yy"}}</div>
+            <div sytle="width: 100px;">{{agenda.hora}}</div>
+            <div style="margin-left: 10px; width: 80px;">{{agenda.assunto}}</div>
+            <ion-button color="success"><ion-icon name="thumbs-up"></ion-icon></ion-button>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" expandable (click)="presentAlertConfirm(agenda.id, agenda.assunto)">Deletar</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "tapp",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

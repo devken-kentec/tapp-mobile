@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Agenda
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-button *ngIf="btnSalvar"(click)="salvarAgenda()" [disabled]="!agendaForm.valid" shape="round" expand="full" color="success">
+        Confirmar
+      </ion-button>
+      <ion-button *ngIf="btnAtualizar" (click)="atualizarAgenda()" shape="round" expand="full" color="success">
+        Atualizar
+      </ion-button>
+      <ion-button shape="round" expand="full" color="warning" routerLink="/home">
+        Voltar
+      </ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text class="home">
+        <h2>Mantenha seus compromissos em dia!</h2>
+      </ion-text>
+      <form [formGroup]="agendaForm" >
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Data</ion-label>
+          <ion-input formControlName="data" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Hora</ion-label>
+          <ion-input formControlName="hora" type="time"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Assunto</ion-label>
+          <ion-input formControlName="assunto" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Descrição:</ion-label>
+          <ion-textarea formControlName="descricao"rows="6" cols="20" placeholder="Escreva aqui..."></ion-textarea>
+        </ion-item>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

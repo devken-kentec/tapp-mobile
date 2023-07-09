@@ -1,0 +1,126 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Financeiro
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-button *ngIf="btnSalvar" (click)="salvarFinanceiro()" shape="round" expand="full" color="success">
+        Confirmar
+      </ion-button>
+      <ion-button *ngIf="btnAtualizar" (click)="atualizarFinanceiro()" shape="round" expand="full" color="success">
+        Atualizar
+      </ion-button>
+      <ion-button style="margin-top: 10px;" shape="round" expand="full" color="warning" routerLink="/home">
+        Voltar
+      </ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text class="home">
+        <h2>Mantenha seus finanças em dia!</h2>
+      </ion-text>
+      <form [formGroup]="financeiroForm">
+
+        <ion-item>
+          <ion-label>Recurso</ion-label>
+          <ion-select placeholder="Selecione a origem" formControlName="recurso">
+            <ion-select-option value="Empresa">Empresa</ion-select-option>
+            <ion-select-option value="Pessoal">Pessoal</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Data</ion-label>
+          <ion-input formControlName="data" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Tipo</ion-label>
+          <ion-select placeholder="Selecione o tipo" formControlName="tipo" (blur)="direcionar()" (focus)="limpar()">
+            <ion-select-option value="Recebimento">Recebimento</ion-select-option>
+            <ion-select-option value="Pagamento">Pagamento</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Referente</ion-label>
+          <ion-select placeholder="Selecione" formControlName="referente">
+            <ion-select-option value="Saldo anterior">Saldo anterior</ion-select-option>
+            <ion-select-option value="Transf. Pessoal">Transf. Pessoal</ion-select-option>
+            <ion-select-option value="Transf. Empresa">Transf. Empresa</ion-select-option>
+            <ion-select-option value="Salário">Salário</ion-select-option>
+            <ion-select-option value="Proventos">Proventos</ion-select-option>
+            <ion-select-option value="Vendas">Vendas</ion-select-option>
+            <ion-select-option value="Fatura">Fatura</ion-select-option>
+            <ion-select-option value="Boleto">Boleto</ion-select-option>
+            <ion-select-option value="Impostos">Impostos</ion-select-option>
+            <ion-select-option value="Taxas">Taxas</ion-select-option>
+            <ion-select-option value="Vend. mercadorias">Vend. mercadorias</ion-select-option>
+            <ion-select-option value="Prest. de serviço">Prestação de serviço</ion-select-option>
+            <ion-select-option value="Ganhos extras">Ganhos extras</ion-select-option>
+            <ion-select-option value="Aluguel">Aluguel</ion-select-option>
+            <ion-select-option value="Veículo">Veículo</ion-select-option>
+            <ion-select-option value="Combustível">Combustível</ion-select-option>
+            <ion-select-option value="Utensílios">Utensílios</ion-select-option>
+            <ion-select-option value="Lanche">Lanche</ion-select-option>
+            <ion-select-option value="Refeição">Refeição</ion-select-option>
+            <ion-select-option value="Animais">Animais</ion-select-option>
+            <ion-select-option value="Mercado">Mercado</ion-select-option>
+            <ion-select-option value="Farmácia">Farmácia</ion-select-option>
+            <ion-select-option value="Passeio">Passeio</ion-select-option>
+            <ion-select-option value="Viagem">Viagem</ion-select-option>
+            <ion-select-option value="Energia">Energia</ion-select-option>
+            <ion-select-option value="Água">Água</ion-select-option>
+            <ion-select-option value="Internet">Internet</ion-select-option>
+            <ion-select-option value="Manutenção">Manutenção</ion-select-option>
+            <ion-select-option value="Outros">Outros</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Valor</ion-label>
+          <ion-input formControlName="valor" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Documento</ion-label>
+          <ion-input formControlName="documento" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Descrição:</ion-label>
+          <ion-textarea formControlName="descricao"rows="6" cols="20" placeholder="Escreva aqui..."></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Vencimento</ion-label>
+          <ion-input formControlName="vencimento" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="statusRec">
+          <ion-label>Status do Recebimento</ion-label>
+          <ion-select placeholder="Selecione o tipo" formControlName="status">
+            <ion-select-option value="á Receber">á Receber</ion-select-option>
+            <ion-select-option value="Recebido">Recebido</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="statusPag">
+          <ion-label>Status do Pagamento</ion-label>
+          <ion-select placeholder="Selecione o tipo" formControlName="status">
+            <ion-select-option value="á Pagar">á Pagar</ion-select-option>
+            <ion-select-option value="Pago">Pago</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+

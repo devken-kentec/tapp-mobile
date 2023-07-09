@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tarefa
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-button *ngIf="btnSalvar"(click)="salvarTarefa()" [disabled]="!tarefaForm.valid" shape="round" expand="full" color="success">
+        Confirmar
+      </ion-button>
+      <ion-button *ngIf="btnAtualizar" (click)="atualizarTarefa()" shape="round" expand="full" color="success">
+        Atualizar
+      </ion-button>
+      <ion-button shape="round" expand="full" color="warning" routerLink="/home">
+        Voltar
+      </ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text class="home">
+        <h2>Fique de olho nas Tarefas!</h2>
+      </ion-text>
+      <form [formGroup]="tarefaForm" >
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Inicio</ion-label>
+          <ion-input formControlName="inicio" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Entrega</ion-label>
+          <ion-input formControlName="entrega" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Hora</ion-label>
+          <ion-input formControlName="hora" type="time"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Prioridade</ion-label>
+          <ion-select placeholder="Selecione a prioridade" formControlName="prioridade">
+            <ion-select-option value="Baixa">Baixa</ion-select-option>
+            <ion-select-option value="Normal">Normal</ion-select-option>
+            <ion-select-option value="Alto">Alto</ion-select-option>
+            <ion-select-option value="Urgente">Urgente</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Descrição:</ion-label>
+          <ion-textarea formControlName="descricao"rows="6" cols="20" placeholder="Escreva aqui..."></ion-textarea>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label position="floating">Observação</ion-label>
+          <ion-input formControlName="observacao" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Status Tarefa</ion-label>
+          <ion-select formControlName="statusTarefa">
+            <ion-select-option value="" selected>Escolha</ion-select-option>
+            <ion-select-option value="Em análise">Em análise</ion-select-option>
+            <ion-select-option value="Pendente">Pendente</ion-select-option>
+            <ion-select-option value="Em execução">Em execução</ion-select-option>
+            <ion-select-option value="Finalizado">Finalizado</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+

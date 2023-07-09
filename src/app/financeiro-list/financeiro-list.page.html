@@ -1,0 +1,109 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Minhas Finanças
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      <ion-button type="button" (click)="pegarData()" shape="round" expand="full" color="warning">
+        Pesquisar por Período
+      </ion-button>
+      <ion-button style="margin-top:10px" type="button" (click)="liberarCampos()" shape="round" expand="full" color="secondary">
+        Pesquisa Avançada
+      </ion-button>
+      <div *ngIf="liberarPesquisaAvancada">
+        <ion-item>
+          <ion-label>Recurso</ion-label>
+          <ion-select placeholder="Selecione o recurso" [(ngModel)]="recurso">
+            <ion-select-option value="">Todos</ion-select-option>
+            <ion-select-option value="Empresa">Empresa</ion-select-option>
+            <ion-select-option value="Pessoal">Pessoal</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tipo</ion-label>
+          <ion-select placeholder="Selecione o tipo" [(ngModel)]="tipo">
+            <ion-select-option value="">Todos</ion-select-option>
+            <ion-select-option value="Recebimento">Recebimento</ion-select-option>
+            <ion-select-option value="Pagamento">Pagamento</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Data Inicial</ion-label>
+          <ion-input [(ngModel)]="dataInicial" type="date"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" style="margin-bottom: 8px;">Data Final</ion-label>
+          <ion-input [(ngModel)]="dataFinal" type="date"></ion-input>
+        </ion-item>
+        <ion-item  side="center">
+          <ion-button type="button" (click)="pesquisaAvancada()" shape="round" color="warning">
+            Pesquisar
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-card-header>
+      <ion-title style="margin-bottom: 10px;">
+        Minhas Finanças
+      </ion-title>
+        <ion-list *ngFor="let finan of financeiros">
+          <ion-item-sliding >
+            <ion-item-options side="start">
+              <ion-item-option expandable (click)="onEdit(finan.id)">Editar</ion-item-option>
+            </ion-item-options>
+            <ion-item>
+
+              <div style="margin-right: 5px; font-size: 10pt;">
+                {{ finan.data | date:"dd/MM/yy" }}<br>
+                {{ finan.vencimento | date:"dd/MM/yy"}}
+              </div>
+              <div style="width: 80px; font-size: 10pt;">
+                {{ finan.referente }}<br>
+                {{ finan.recurso}}
+              </div>
+              <div style="width: 90px; font-size: 10pt;">
+                {{ finan.tipo }}<br>
+                {{ finan.status }}
+              </div>
+              <div>
+                R$ {{ globalService.converterMoeda(finan.valor) }}
+              </div>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" expandable (click)="presentAlertConfirm(finan.id, finan.referente)">Deletar</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+    </ion-card>
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button  routerLink="/financeiro"  color="primary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <ion-card>
+      <ion-card-header>
+        <ion-title>
+          Resultado Financeiro
+        </ion-title>
+      </ion-card-header>
+      <ion-list >
+        <div class="resultado" style="color: blue;">
+          Recebimentos: R$ {{ recebimentos }}
+        </div>
+        <div class="resultado" style="color: red; border-bottom: 1px solid black;">
+          Pagamentos: R$ {{ pagamentos }}
+        </div>
+        <div class="resultado" style="color:black;">
+         Resultado: R$ {{ resultado }}
+        </div>
+      </ion-list>
+
+
+      </ion-card>
+</ion-content>
